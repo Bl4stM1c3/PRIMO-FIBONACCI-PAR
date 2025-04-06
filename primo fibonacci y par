@@ -1,0 +1,45 @@
+#Posible solucion al ejercicio 57 de https://retosdeprogramacion.com/ejercicios/
+# Escribe un programa que, dado un número, compruebe y muestre si es primo,
+# * fibonacci y par.
+# * Ejemplos:
+# * - Con el número 2, nos dirá: "2 es primo, fibonacci y es par"
+# * - Con el número 7, nos dirá: "7 es primo, no es fibonacci y es impar"
+
+from math import sqrt
+
+def primo_fibonacci_par(numero):
+    
+    def es_par(numero):
+        if numero % 2 == 0:
+            return True
+    
+    def fibonacci(numero):
+        ecuacion1 = 5 * numero**2 + 4
+        ecuacion2 = 5 * numero**2 - 4
+        
+        if int(sqrt(ecuacion1))*int(sqrt(ecuacion1))==ecuacion1 or int(sqrt(ecuacion2))*int(sqrt(ecuacion2)) == ecuacion2:
+            return True
+        
+    def es_primo(numero):
+        if numero < 2:
+            return False
+        elif numero == 2 or numero == 3:
+            return True
+        elif numero % 2 == 0 or numero % 3 == 0:
+            return False
+        else:
+            divisores = [i for i in range(2, numero) if numero % i == 0]
+            if len(divisores) > 0:
+                return False
+            else:
+                return True
+        
+    
+    return print(f"{numero} es primo, fibonacci y es par" if es_par(numero) and fibonacci(numero) and es_primo(numero) else 
+            f"{numero} es primo, fibonacci y es impar" if fibonacci(numero) and es_primo(numero) else
+            f"{numero} es primo, no es fibonacci y es par" if es_par(numero) and es_primo(numero) else
+            f"{numero} es primo, no es fibonacci y es impar" if es_primo(numero) else
+            f"{numero} no es primo, es fibonacci y es par" if fibonacci(numero) and es_par(numero) else
+            f"{numero} no es primo, es fibonacci y es impar" if fibonacci(numero) else
+            f"{numero} no es primo, no es fibonacci y es par" if es_par(numero) else
+            f"{numero} no es primo, no es fibonacci y es impar")
